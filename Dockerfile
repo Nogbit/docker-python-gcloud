@@ -62,6 +62,7 @@ RUN set -ex \
 		util-linux-dev \
 		xz-dev \
 		zlib-dev \
+		postgresql-dev \
 # add build deps before removing fetch deps in case there's overlap
 	&& apk del --no-network .fetch-deps \
 	\
