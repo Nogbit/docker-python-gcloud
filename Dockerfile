@@ -60,6 +60,7 @@ RUN set -ex \
 		util-linux-dev \
 		xz-dev \
 		zlib-dev \
+		bash \
 # add build deps before removing fetch deps in case there's overlap
 	&& apk del --no-network .fetch-deps \
 	\
@@ -146,3 +147,5 @@ RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image && \
     gcloud --version
+
+RUN bash
