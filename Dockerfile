@@ -1,9 +1,7 @@
 FROM docker:latest
 
 # PYTHON
-# this is copypasta from 
-# https://github.com/docker-library/python/blob/master/3.9-rc/alpine3.11/Dockerfile
-
+# https://github.com/docker-library/python/blob/5c38998d55d0396dab6658e579fdeec353d97660/3.9-rc/alpine3.11/Dockerfile
 
 # ensure local python is preferred over distribution python
 ENV PATH /usr/local/bin:$PATH
@@ -62,7 +60,6 @@ RUN set -ex \
 		util-linux-dev \
 		xz-dev \
 		zlib-dev \
-		postgresql-dev \
 # add build deps before removing fetch deps in case there's overlap
 	&& apk del --no-network .fetch-deps \
 	\
@@ -133,20 +130,19 @@ RUN set -ex; \
 		\) -exec rm -rf '{}' +; \
 	rm -f get-pip.py
 
+RUN python --version
 
-# GCLOUD SDK
+
+## gcloud SDK
 # https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile
-ARG CLOUD_SDK_VERSION=290.0.0
-ENV CLOUD_SDK_VERSION=$CLOUD_SDK_VERSION
+ENV CLOUD_SDK_VERSION=290.0.0
 ENV CLOUDSDK_PYTHON=python3
 ENV PATH /google-cloud-sdk/bin:$PATH
 
 RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
     tar xzf google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
-    rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz && \
+    rm google-cloud-sdk-${CLOUD_SDK_VERSION}-linux-x86_64.tar.gz  && \
     gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image && \
     gcloud --version
-
-VOLUME ["/root/.config"]
