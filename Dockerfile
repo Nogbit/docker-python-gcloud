@@ -60,7 +60,6 @@ RUN set -ex \
 		util-linux-dev \
 		xz-dev \
 		zlib-dev \
-		bash \
 # add build deps before removing fetch deps in case there's overlap
 	&& apk del --no-network .fetch-deps \
 	\
@@ -133,6 +132,8 @@ RUN set -ex; \
 
 RUN python --version
 
+## Extras
+RUN apk add bash --no-cache
 
 ## gcloud SDK
 # https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile
