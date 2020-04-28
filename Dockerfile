@@ -133,7 +133,7 @@ RUN set -ex; \
 RUN python --version
 
 ## Extras
-RUN apk add bash --no-cache
+RUN apk add bash --no-cache 
 
 ## gcloud SDK
 # https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile
@@ -148,3 +148,6 @@ RUN wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image && \
     gcloud --version
+
+## Use bash instead of ash from docker:latest
+CMD ["bash"]
