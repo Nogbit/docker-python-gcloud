@@ -3,6 +3,9 @@ FROM osgeo/gdal:alpine-normal-latest
 ## Extras
 RUN apk add bash --no-cache 
 
+## pg_config deps for Alpine 3.11
+RUN apk add postgresql-dev gcc python3-dev musl-dev --no-cache
+
 ## gcloud SDK
 # https://github.com/GoogleCloudPlatform/cloud-sdk-docker/blob/master/alpine/Dockerfile
 ENV CLOUD_SDK_VERSION=290.0.0
